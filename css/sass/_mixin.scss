@@ -1,0 +1,73 @@
+@mixin flex {
+  display: flex;
+  align-items: center;
+}
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+@mixin before($width, $hight, $color) {
+  content: "";
+  position: absolute;
+  width: $width;
+  height: $hight;
+  bottom: 0px;
+  background-color: $color;
+}
+
+@mixin product-images {
+  $Orange: hsl(26, 100%, 55%);
+  .main-image {
+    img {
+      width: 420px;
+      border-radius: 16px;
+    }
+  }
+  .thumbnail-images {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 26px;
+    img {
+      width: 85px;
+      border-radius: 9px;
+    }
+    .active-thumbnail {
+      @include flex;
+      justify-content: center;
+      border: 2px solid $Orange;
+      border-radius: 11px;
+      width: 88px;
+      img {
+        filter: opacity(30%);
+      }
+    }
+  }
+}
+
+@mixin arrow-span($direction) {
+  @include flex;
+  position: absolute;
+  top: 260px;
+  #{$direction}: 0px;
+  transform: translateY(50%);
+  justify-content: center;
+  background-color: white;
+  fill: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  stroke: #1d2026;
+  transition: stroke 0.3s;
+  &:hover {
+    stroke: hsl(26, 100%, 55%);
+  }
+}
+
+@mixin mobile-arrows {
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+}
