@@ -256,7 +256,7 @@ header {
         width: 65%;
         height: 100vh;
         background-color: white;
-        z-index: 1;
+        z-index: 2;
         &::before {
           @include before(54%, 100%, rgb(0 0 0 / 75%));
           right: -54%;

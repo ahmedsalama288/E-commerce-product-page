@@ -250,7 +250,7 @@ header .cart-box #cart #cart-data button:focus {
     width: 65%;
     height: 100vh;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
   }
   header #mobile-nav::before {
     content: "";
@@ -390,7 +390,7 @@ main .popup .product-imgs span#close-popup {
   height: 20px;
   cursor: pointer;
   background-size: cover;
-  background-image: url(/images/icon-close.svg);
+  background-image: url(../images/icon-close.svg);
 }
 main .popup .product-imgs span#previous {
   display: flex;

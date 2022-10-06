@@ -111,25 +111,28 @@ let changeMainImage = function (imageNumber, image) {
 };
 let previousImage = function (mainImage, thumbnailImages) {
   let imageNum = +mainImage.src.match(/\d.jpg/gi)[0].match(/\d/)[0];
-  if (imageNum >= 2 && imageNum <= 4) {
-    changeMainImage(imageNum - 1, mainImage);
-    thumbnailImages !== ""
-      ? removeAddActiveImage(thumbnailImages, imageNum - 2)
-      : null;
-  }
+  imageNum === 1 ? (imageNum = 5) : null;
+  changeMainImage(imageNum - 1, mainImage);
+  thumbnailImages !== ""
+    ? removeAddActiveImage(thumbnailImages, imageNum - 2)
+    : null;
 };
 
 let nextImage = function (mainImage, thumbnailImages) {
   let imageNum = +mainImage.src.match(/\d.jpg/gi)[0].match(/\d/)[0];
-  if (imageNum >= 1 && imageNum < 4) {
-    changeMainImage(imageNum + 1, mainImage);
-    thumbnailImages !== ""
-      ? removeAddActiveImage(thumbnailImages, imageNum)
-      : null;
-  }
+  imageNum === 4 ? (imageNum = 0) : null;
+  changeMainImage(imageNum + 1, mainImage);
+  thumbnailImages !== ""
+    ? removeAddActiveImage(thumbnailImages, imageNum)
+    : null;
 };
 
-let previousNextImage = function (span, option, mainImage, thumbnailImages = "") {
+let previousNextImage = function (
+  span,
+  option,
+  mainImage,
+  thumbnailImages = ""
+) {
   span.addEventListener("click", () => {
     if (option === "previous") previousImage(mainImage, thumbnailImages);
     else nextImage(mainImage, thumbnailImages);
@@ -150,36 +153,40 @@ eventLisThumbnail(thumbnailImages, mainImage);
 // popup Section
 let popupDiv = document.getElementsByClassName("popup")[0];
 let popupThumbnail = document.querySelectorAll(
-  "main .popup .product-imgs .thumbnail-images div"
+  "main > .popup .product-imgs .thumbnail-images div"
 );
-let popupMainImage = document.querySelector(
-  "main .popup .product-imgs .main-image img"
-);
+
+// Control Span
 let closePopup = document.getElementById("close-popup");
 let popupPrevious = document.getElementById("previous");
 let popupNext = document.getElementById("next");
 
-
-// If The User Click On The Main Image 
+// If The User Click On The Main Image
 // Open The popup and active The buttons to work with user clicks
 mainImage.addEventListener("click", () => {
   if (window.innerWidth > 992) {
     popupDiv.style.display = "block";
-    eventLisThumbnail(popupThumbnail, popupMainImage);
-    closePopup.addEventListener("click", () => {
-      popupDiv.style.display = "none";
-    });
-
-    previousNextImage(popupPrevious, "previous", popupMainImage, popupThumbnail);
-    previousNextImage(popupNext, "next", popupMainImage, popupThumbnail);
   }
 });
 
-// Next And Previous IN Mobile Screen 
+// Get The Main Popup Image
+let popupMainImage = document.querySelector(
+  "main .popup .product-imgs .main-image img"
+);
+// Add Event lisener to The popup Thumbnail
+eventLisThumbnail(popupThumbnail, popupMainImage);
+// Add Event lisener to The Close Span (icon)
+closePopup.addEventListener("click", () => {
+  popupDiv.style.display = "none";
+});
+
+previousNextImage(popupPrevious, "previous", popupMainImage, popupThumbnail);
+previousNextImage(popupNext, "next", popupMainImage, popupThumbnail);
+
+// ................................
+
+// Next And Previous IN Mobile Screen
 let mobilePrevious = document.getElementById("previous-mob-screen");
 let mobileNext = document.getElementById("next-mob-screen");
-
-
-previousNextImage(mobilePrevious, "previous", mainImage);
-previousNextImage(mobileNext, "next", mainImage);
-
+previousNextImage(mobilePrevious, "previous", mainImage, "");
+previousNextImage(mobileNext, "next", mainImage, "");
